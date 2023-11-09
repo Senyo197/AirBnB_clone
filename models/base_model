@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 from datetime import datetime
 import uuid
+from models.engine.file_storage import FileStorage
 
+
+storage = FileStorage()
+storage.reload()
 
 class BaseModel:
     """Represents the BaseModel for AirBnB clone the console project."""
@@ -17,24 +21,22 @@ class BaseModel:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = datetime.today()
-
-        if kwargs:
+        if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key != "__class__":
                     if key == "created_at" or key == "updated_at":
-                        setattr(self, key,\
-                               datetime.strptime(value, time_format))
+                        self.__dict__[key] = datetime.strptime(value,\
+                         time_format)
                     else:
-                        setattr(self, key, value)
+                        self.__dict__[key] = value
                 else:
-                    storage.new(self)
+                    
 
     def __str__(self):
         return f"[self.__class__.__name__] ({self.id}) {self.__dict__}"
 
     def save(self):
         self.updated_at = datetime.now()
-        storage.save()
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()
