@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import models
 from datetime import datetime
 import uuid
 
@@ -22,19 +23,19 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     if key == "created_at" or key == "updated_at":
-                        setattr(self, key,\
-                               datetime.strptime(value, time_format))
+                        setattr(self, key,
+                                datetime.strptime(value, time_format))
                     else:
                         setattr(self, key, value)
                 else:
-                    storage.new(self)
+                    models.storage.new(self)
 
     def __str__(self):
         return f"[self.__class__.__name__] ({self.id}) {self.__dict__}"
 
     def save(self):
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()
