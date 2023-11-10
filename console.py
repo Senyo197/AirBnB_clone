@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import cmd
+import sys
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -21,4 +22,11 @@ class HBNBCommand(cmd.Cmd):
         pass
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if sys.stdin.isatty():
+        HBNBCommand().cmdloop()
+    else:
+        commands = sys.stdin.read().splitlines()
+        for command in commands:
+            print('(hbnb)')
+            HBNBCommand().onecmd(command)
+        print('(hbnb)')
