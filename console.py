@@ -13,9 +13,9 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-
+        class_name = split()[0]
         try:
-            new_instance = BaseModel()
+            new_instance = eval(class_name)()
             new_instance.save()
             print(new_instance.id)
         except NameError:
