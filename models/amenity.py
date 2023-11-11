@@ -1,4 +1,7 @@
-ete the Amenity class."""                                                                                                                                                               from models.base_model import BaseModel                                                                                                                                                       
+#!/usr/bin/python3
+"""Creating a class called amenity."""
+from models.base_model import BaseModel
+
 
 class Amenity(BaseModel):
     """Represent an amenity.
@@ -7,4 +10,4 @@ class Amenity(BaseModel):
         name (str): The name of the amenity.
     """
 
-    name = ""                                                                                                                             
+    name = ""
