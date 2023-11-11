@@ -12,15 +12,11 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         if not arg:
             print("** class name missing **")
-            return
-
-        class_name = arg.split()[0]
-
         try:
-            new_instance = eval(class_name)()
+            new_instance = eval(arg)()
             new_instance.save()
             print(new_instance.id)
-        except NameError:
+        except Exception:
             print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -28,22 +24,26 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        class_name = args[0]
-        if class_name not in storage.all():
+        try:
+            class_name = args[0]
+            if class_name not in storage.all():
+                print("** class doesn't exist **")
+                return
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+            instance_id = args[1]
+            key = "{}.{}".format(class_name, instance_id)
+            instances = storage.all()
+            if key not in instances:
+                print("** no instance found **")
+                return
+            else:
+                print(instances[key])
+                print("** class name missing **")
+                return
+        except Exception:
             print("** class doesn't exist **")
-            return
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-        instance_id = args[1]
-        key = "{}.{}".format(class_name, instance_id)
-        instances = storage.all()
-        if key not in instances:
-            print("** no instance found **")
-            return
-        else:
-            print(instances[key])
-            return
 
     def do_destroy(self, arg):
         args = arg.split()
@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         try:
             class_name = args[0]
-            if class_name not in storage.all():
+            if class_name not in storage.classes():
                 print("** class doesn't exist **")
                 return
             if len(args) < 2:
@@ -93,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         try:
             class_name = args[0]
-            if class_name not in storage.all():
+            if class_name not in storage.classes():
                 print("** class doesn't exist **")
                 return
             if len(args) < 2:
