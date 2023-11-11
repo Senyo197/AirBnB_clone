@@ -14,10 +14,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        class_name = arg.split()[0]
-
         try:
-            new_instance = eval(class_name)()
+            new_instance = BaseModel()
             new_instance.save()
             print(new_instance.id)
         except NameError:
@@ -28,21 +26,28 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
+
         class_name = args[0]
-        if class_name not in storage.all():
+
+        instances = storage.all()
+
+        if class_name not in instances.items():
             print("** class doesn't exist **")
             return
+
         if len(args) < 2:
             print("** instance id missing **")
             return
+
         instance_id = args[1]
         key = "{}.{}".format(class_name, instance_id)
-        instances = storage.all()
+
         if key not in instances:
             print("** no instance found **")
             return
         else:
-            print(instances[key])
+            obj = instances[key]
+            print(obj)
             return
 
     def do_destroy(self, arg):
