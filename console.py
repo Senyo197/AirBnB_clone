@@ -13,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-        class_name = split()[0]
+        class_name = arg.split()[0]
         try:
             new_instance = eval(class_name)()
             new_instance.save()
