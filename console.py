@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" A class that represents a console """
 
 import cmd
 import sys
@@ -10,8 +11,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.city import City
 from models.review import Review
-
-""" A class that represents a console """
 
 
 class HBNBCommand(cmd.Cmd):

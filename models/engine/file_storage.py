@@ -1,4 +1,6 @@
 #!/usr/bin/python
+""" A File storage class"""
+
 import json
 from os.path import exists
 from models.base_model import BaseModel
@@ -8,7 +10,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.city import City
 from models.review import Review
-""" A File storage class"""
 
 
 class FileStorage:
