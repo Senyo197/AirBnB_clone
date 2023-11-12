@@ -14,13 +14,13 @@ class FileStorage:
     __objects = {}
 
     CLASSES = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'State': State,
-        'Place': Place,
-        'Amenity': Amenity,
-        'City': City,
-        'Review': Review,
+        'BaseModel': BaseModel
+        'User': User
+        'State': State
+        'Place': Place
+        'Amenity': Amenity
+        'City': City
+        'Review': Review
     }
 
     def all(self):
@@ -38,12 +38,11 @@ class FileStorage:
             json.dump(serialized_objs, file)
 
     def reload(self):
-        try:
+        if exists(self.__file_path):
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 deserialized_objs = json.load(file)
                 for key, obj_data in deserialized_objs.items():
                     class_name, obj_id = key.split('.')
-                    obj_instance = self.CLASSES[class_name](**obj_data)
+                    class_instance = globals()[class_name]
+                    obj_instance = class_instance(**obj_data)
                     self.__objects[key] = obj_instance
-        except FileNotFoundError:
-            pass
