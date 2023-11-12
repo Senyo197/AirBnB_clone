@@ -249,11 +249,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    if sys.stdin.isatty():
-        HBNBCommand().cmdloop()
-    else:
-        commands = sys.stdin.read().splitlines()
-        for command in commands:
-            print('(hbnb)')
-            HBNBCommand().onecmd(command)
-        print('(hbnb)')
+    HBNBCommand().cmdloop()
