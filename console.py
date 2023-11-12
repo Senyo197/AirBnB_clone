@@ -110,36 +110,92 @@ class HBNBCommand(cmd.Cmd):
         print(result)
 
     def do_update(self, arg):
+
         args = arg.split()
+
         if not args:
             print("** class name missing **")
+            return
+
         try:
             class_name = args[0]
-            if class_name not in storage.all():
+
+            if class_name not in globals():
                 print("** class doesn't exist **")
                 return
+
             if len(args) < 2:
                 print("** instance id missing **")
                 return
+
             instance_id = args[1]
-            key = "{}.{}".format(class_name, instance_id)
+            key = f"{class_name}.{instance_id}"
             instances = storage.all()
+
             if key not in instances:
                 print("** no instance found **")
                 return
+
+            instance = instances[key]
+
             if len(args) < 3:
                 print("** attribute name missing **")
                 return
+
             attribute_name = args[2]
+
             if len(args) < 4:
                 print("** value missing **")
                 return
-            attribute_value = args[3]
-            instance = instances[key]
-            setattr(instance, attribute_name, attribute_value)
-            instances.save()
-        except Exception:
+
+            value_str = args[3]
+
+            if value_str.startswith('"') and value_str.endswith('"'):
+                value_str = value_str[1:-1]
+
+            try:
+                value = int(value_str)
+            except ValueError:
+                try:
+                    value = float(value_str)
+                except ValueError:
+                    value = value_str
+
+            if isinstance(value, (str, int, float)):
+                setattr(instance, attribute_name, value)
+                instance.save()
+
+        except IndexError:
+            print("** instance id missing **")
+        except NameError:
             print("** class doesn't exist **")
+
+    def do_show_state(self, arg):
+        self.do_show(f"state {arg}")
+
+    def do_create_state(self, arg):
+        self.do_create(f"state {arg}")
+
+    def do_destroy_state(self, arg):
+        self.do_destroy(f"state {arg}")
+
+    def do_all_state(self, arg):
+        self.do_all(f"state")
+
+    def do_update_state(self, arg):
+        self.do_update(f"state {arg}")
+
+    def do_city_state(self, arg):
+        self.do_city(f"state {arg}")
+
+    def do_amenity_state(self, arg):
+        self.do_amenity(f"state {arg}")
+
+   def do_place_state(self, arg):
+        self.do_place(f"state {arg}")
+
+   def do_review_state(self, arg):
+        self.do_review(f"state {arg}")
 
     def do_quit(self, arg):
         return True
