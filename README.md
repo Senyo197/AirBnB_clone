@@ -5,13 +5,14 @@ This is a team project in the 6th month of the ALX Full-Stack Software Engineeri
 
 ## Usage
 The console works in both interractive and non-interractive mode
-               Commands                                   Example
+
 -------------------------------------------------------------------------------
-1. Run the console                         |1. `./console.py`
-2. Quit the console                        |2. `(hbnb) quit`
-3. Display help for a command              |3. `(hbnb) help "command"`
-4. Create an object                        |4. `(hbnb) create "class"`
-5. show an object                          |5. `(hbnb) show "class", id` or `(hbnb) class.show()`
-6. Destroy an object                       |5. `(hbnb) destroy class, id` or `(hbnb) class.destroy(id)`
-7. Show all objects or instances of a class|6. `(hbnb) all` or `(hbnb) all class`
-8. Update an attribute of an object        |7. `(hbnb) update class, id, attribute name, attribute value`
+## Commands                                | ## Example
+1. Run the console                         | `./console.py`
+2. Quit the console                        | `(hbnb) quit`
+3. Display help for a command              | `(hbnb) help "command"`
+4. Create an object                        | `(hbnb) create "class"`
+5. show an object                          | `(hbnb) show "class", id` or `(hbnb) class.show()`
+6. Destroy an object                       | `(hbnb) destroy class, id` or `(hbnb) class.destroy(id)`
+7. Show all objects or instances of a class| `(hbnb) all` or `(hbnb) all class`
+8. Update an attribute of an object        | `(hbnb) update class, id, attribute name, attribute value`
