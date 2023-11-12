@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import json
-from os.path import exists
 from models.base_model import BaseModel
+
 
 class FileStorage:
     __file_path = "file.json"
@@ -22,11 +22,15 @@ class FileStorage:
             json.dump(serialized_objs, file)
 
     def reload(self):
-        if exists(self.__file_path):
+        try:
             with open(self.__file_path, 'r') as file:
-                deserialized_objs = json.load(file)
-                for key, obj_data in deserialized_objs.items():
-                    class_name, obj_id = key.split('.')
-                    class_instance = globals()[class_name]
-                    obj_instance = class_instance(**obj_data)
-                    self.__objects[key] = obj_instance
+                data = json.load(file)
+            for key, value in data.items():
+                class_name, obj_id = key.split('.')
+                obj = BaseModel.from_dict(value)
+                self.__objects[key] = obj
+        except FileNotFoundError:
+            pass
+
+    def __init__(self):
+        self.reload()
