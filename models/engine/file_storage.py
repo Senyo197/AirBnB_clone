@@ -8,8 +8,18 @@ from models.place import Place
 from models.amenity import Amenity
 from models.city import City
 from models.review import Review
+""" A File storage class"""
+
 
 class FileStorage:
+    """
+    FileStorage class for serializing and deserializing objects to JSON
+
+    Attributes:
+        __file_path (str): The path to the JSON file
+        __objects (dict): A dictionary to store serialized objects
+        CLASSES (dict): A mapping of class names to their corresponding classes
+    """
     __file_path = "file.json"
     __objects = {}
 
@@ -24,13 +34,16 @@ class FileStorage:
     }
 
     def all(self):
+        """ Retrieve and return all objects stored in __objects"""
         return self.__objects
 
     def new(self, obj):
-        key = "{}.{}".format(obj.__class__.__name__,obj.id)
+        """Add a new object to __objects"""
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 
     def save(self):
+        """Save the serialized objects to the JSON file"""
         serialized_objs = {}
         for key, obj in self.__objects.items():
             serialized_objs[key] = obj.to_dict()
@@ -38,6 +51,7 @@ class FileStorage:
             json.dump(serialized_objs, file)
 
     def reload(self):
+        """Reload objects from the JSON file into the __objects dictionary"""
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 deserialized_objs = json.load(file)

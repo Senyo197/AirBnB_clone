@@ -3,6 +3,8 @@ import models
 from datetime import datetime
 import uuid
 
+"""The Base model"""
+
 
 class BaseModel:
     """Represents the BaseModel for AirBnB clone the console project."""
@@ -31,13 +33,16 @@ class BaseModel:
                     models.storage.new(self)
 
     def __str__(self):
+        """Return string representation of the base instance"""
         return f"[self.__class__.__name__] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """save the current state of the object"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """ Convert the object's attributes to a dictionary """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()

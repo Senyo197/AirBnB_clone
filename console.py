@@ -4,12 +4,26 @@ import cmd
 import sys
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
+from models.city import City
+from models.review import Review
+
+""" A class that represents a console """
 
 
 class HBNBCommand(cmd.Cmd):
+    """HBNBCommand - Custom command-line interface for data management
+
+    Attributes:
+        prompt (str): The prompt string for the command-line interface
+    """
     prompt = '(hbnb) '
 
     def do_create(self, arg):
+        """Create a new instance of a specified class and save it"""
         if not arg:
             print("** class name missing **")
             return
@@ -21,6 +35,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, arg):
+        """Prints the string representation of an instance
+         based on the class name and id"""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -54,6 +70,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_destroy(self, arg):
+        """Deletes an instance based on the class name and id"""
 
         args = arg.split()
 
@@ -90,7 +107,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_all(self, arg):
-
+        """Prints all string representations of all instances
+         based on the class name"""
         args = arg.split()
         instances = storage.all()
 
@@ -110,7 +128,8 @@ class HBNBCommand(cmd.Cmd):
         print(result)
 
     def do_update(self, arg):
-
+        """Updates an instance based on the class name and id by adding or
+         updating attribute"""
         args = arg.split()
 
         if not args:
@@ -171,45 +190,61 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show_state(self, arg):
+        """Prints the string representation of a User instance
+         based on the id"""
         self.do_show(f"state {arg}")
 
     def do_create_state(self, arg):
+        """Creates a new instance of User, saves it, and prints the id"""
         self.do_create(f"state {arg}")
 
     def do_destroy_state(self, arg):
+        """Deletes a User instance based on the id"""
         self.do_destroy(f"state {arg}")
 
     def do_all_state(self, arg):
+        """Prints all string representations of User instances"""
         self.do_all(f"state")
 
     def do_update_state(self, arg):
+        """Updates a User instance based on the id by adding or
+         updating attribute"""
         self.do_update(f"state {arg}")
 
     def do_city_state(self, arg):
+        """Execute the 'do_city' method with the specified state argument"""
         self.do_city(f"state {arg}")
 
     def do_amenity_state(self, arg):
+        """Execute the 'do_amenity' method with the specified state argument"""
         self.do_amenity(f"state {arg}")
 
     def do_place_state(self, arg):
+        """Execute the 'do_place' method with the specified state argument"""
         self.do_place(f"state {arg}")
 
     def do_review_state(self, arg):
+        """Execute the 'do_review' method with the specified state argument"""
         self.do_review(f"state {arg}")
 
     def do_quit(self, arg):
+        """Exit the console using 'quit' """
         return True
 
     def help_quit(self):
+        """Print information about the 'quit' command"""
         print("Quit command to exit the program")
 
     def do_EOF(self, arg):
+        """Exit the console using 'EOF' """
         return True
 
     def help_EOF(self):
+        """Print information about the 'EOF' command"""
         print("EOF command to exit the program")
 
     def emptyline(self):
+        """Do nothing on an empty line"""
         pass
 
 
