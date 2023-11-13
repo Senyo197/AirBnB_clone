@@ -123,6 +123,7 @@ class TestAmenity_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             am.save(None)
 
+
 class TestAmenity_to_dict(unittest.TestCase):
     """Unittests to test to_dict method for the Amenity class."""
 
