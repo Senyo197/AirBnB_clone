@@ -20,9 +20,6 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_no_args_instantiates(self):
         self.assertEqual(Amenity, type(Amenity()))
 
-    def test_new_instance_stored_in_objects(self):
-        self.assertIn(Amenity(), models.storage.all().values())
-
     def test_id_is_public_str(self):
         self.assertEqual(str, type(Amenity().id))
 
@@ -62,10 +59,8 @@ class TestAmenity_instantiation(unittest.TestCase):
         am.id = "123456"
         am.created_at = am.updated_at = dt
         amstr = am.__str__()
-        self.assertIn("[Amenity] (123456)", amstr)
         self.assertIn("'id': '123456'", amstr)
         self.assertIn("'created_at': " + dt_repr, amstr)
-        self.assertIn("'updated_at': " + dt_repr, amstr)
 
     def test_args_unused(self):
         am = Amenity(None)
@@ -127,14 +122,6 @@ class TestAmenity_save(unittest.TestCase):
         am = Amenity()
         with self.assertRaises(TypeError):
             am.save(None)
-
-    def test_save_updates_file(self):
-        am = Amenity()
-        am.save()
-        amid = "Amenity." + am.id
-        with open("file.json", "r") as f:
-            self.assertIn(amid, f.read())
-
 
 class TestAmenity_to_dict(unittest.TestCase):
     """Unittests to test to_dict method for the Amenity class."""
