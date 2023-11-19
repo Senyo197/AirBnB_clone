@@ -121,6 +121,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in instances.items():
                 if class_name == key.split('.')[0]:
                     filtered_instances[key] = value
+
         result = []
         for key in instances.values():
             result.append(str(key))
